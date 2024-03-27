@@ -1,3 +1,44 @@
 Briefly explain the vulnerability and why the secure version prevents the vulnerability.
 Which CIA property does tampering violate?
 What additional security mechanisms can you incorporate?
+
+1. Vulnerability:
+   - In the insecure version, the code directly uses the user-provided `username` 
+   value in the MongoDB query without any validation or sanitization, making it 
+   vulnerable to NoSQL injection attacks.
+   - Attackers can exploit this vulnerability by providing malicious input that 
+   alters the logic of the MongoDB query, potentially allowing unauthorized access 
+   to sensitive data or even compromising the entire database.
+
+2. Secure Solution:
+   - The secure version mitigates this vulnerability by incorporating input 
+   validation and sanitization measures.
+   - It validates the `username` input to ensure it is of string type and then
+    sanitizes it by removing any non-alphanumeric characters using a regular 
+    expression.
+   - This sanitized `username` is then used in the MongoDB query, preventing
+    NoSQL injection attacks as the query logic remains intact.
+
+3. Prevention of Vulnerability:
+   - By validating and sanitizing the user input before using it in the database 
+   query, the secure version prevents attackers from manipulating the query logic.
+   - This ensures that only intended database records are retrieved based on 
+   the sanitized input, mitigating the risk of unauthorized data access.
+
+4. CIA Property Violation:
+   - Tampering with the MongoDB query logic due to NoSQL injection vulnerabilities
+    violates the Integrity property of the CIA triad.
+   - It compromises the integrity of the data by allowing unauthorized modifications
+    to the database query, potentially leading to unauthorized access or disclosure 
+    of sensitive information.
+
+5. Additional Security Mechanisms:
+   - Using parameterized queries or ORM (Object-Relational Mapping) libraries that
+    automatically handle input sanitization can provide an extra layer of protection
+     against injection attacks.
+   - Employing authentication and authorization mechanisms to ensure that only 
+   authenticated and authorized users can access sensitive data.
+   - Implementing rate limiting, request throttling, and logging mechanisms 
+   to detect and mitigate suspicious activities or attacks.
+   - Regularly updating dependencies, including frameworks, libraries, and
+    database systems, to patch any known security vulnerabilities.

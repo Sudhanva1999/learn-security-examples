@@ -1,0 +1,30 @@
+Vulnerability:
+In the insecure version, user input from the registration form is stored 
+in the session without proper sanitization, making it susceptible to 
+HTML injection attacks.
+The user input is directly assigned to req.session.user without any 
+sanitization, allowing attackers to inject malicious HTML or scripts.
+
+Secure Solution:
+The secure version addresses this vulnerability by implementing a 
+function escapeHTML to sanitize user input before storing it in the 
+session.
+Before assigning the user input to req.session.user, the escapeHTML
+function is used to escape special characters that could be used 
+for HTML injection, ensuring that the stored data is safe to
+render in HTML.
+
+Prevention of Vulnerability:
+By sanitizing user input with the escapeHTML function, the secure 
+version prevents attackers from injecting malicious HTML or scripts
+into the session data.
+This ensures that even if an attacker attempts to inject malicious
+code through the registration form, it will be rendered harmless
+when displayed on the website.
+
+CIA Property Violation:
+Tampering violates the Integrity property of the CIA (Confidentiality, 
+Integrity, and Availability) triad.
+By tampering with the session data through HTML injection, attackers 
+can modify the integrity of the data, potentially leading to unauthorized
+actions or disclosure of sensitive information.

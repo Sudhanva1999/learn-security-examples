@@ -1,1 +1,21 @@
 Briefly explain the vulnerability and why the secure version prevents the vulnerability.
+
+The vulnerability in the insecure version lies in the way session data is managed. 
+In the insecure version, the session secret (SOMESECRET) is hardcoded, making it 
+susceptible to being guessed or intercepted by attackers. This secret is used to
+sign the session data, providing a layer of protection against tampering and
+spoofing attacks.
+the secure version improves upon this by taking the session secret as an argument 
+during server startup, making it less predictable and more secure. Additionally, 
+it enhances security by setting the httpOnly and sameSite attributes in the session
+cookie, which helps prevent various types of attacks such as cross-site scripting
+and cross-site request forgery (CSRF).
+
+Spoofing violates the Confidentiality and Integrity aspects of the CIA (Confidentiality,
+Integrity, and Availability) triad. By spoofing, an attacker may gain unauthorized 
+access to sensitive data (violating confidentiality) or manipulate data in transit
+(violating integrity). In the case of the insecure server, if an attacker can 
+guess or intercept the session secret, they can potentially impersonate other 
+users and access sensitive information or perform unauthorized actions. The 
+secure version mitigates this risk by using a more secure session secret and 
+implementing additional security measures in the session cookie.
